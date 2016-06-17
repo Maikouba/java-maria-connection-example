@@ -7,7 +7,7 @@ import br.edu.ifsp.database.Database;
 import br.edu.ifsp.database.MariaDatabase;
 import br.edu.ifsp.model.Client;
 
-public class ClientControl {
+public class ClientControl implements IControl<Client> {
 
 	private ClientDAO dao;
 	
@@ -17,7 +17,7 @@ public class ClientControl {
 		dao = new ClientDAO(db);
 	}
 	
-	public List<Client> listClients() {
+	public List<Client> list() {
 		return dao.listAll(); 
 	}
 	

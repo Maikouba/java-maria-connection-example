@@ -8,7 +8,7 @@ public class Client implements IModel {
 	
 	private String name;
 	
-	private Date nascimento;
+	private Date birthdate;
 
 	public Long getIdClient() {
 		return idClient;
@@ -26,11 +26,11 @@ public class Client implements IModel {
 		this.name = name;
 	}
 
-	public Date getNascimento() {
-		return nascimento;
+	public Date getBirthdate() {
+		return birthdate;
 	}
 
-	public void setNascimento(Date nascimento) {
-		this.nascimento = nascimento;
+	public void setBirthdate(Date birthdate) {
+		this.birthdate = birthdate;
 	}
 }

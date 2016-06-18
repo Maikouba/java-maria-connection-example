@@ -2,11 +2,13 @@ package br.edu.ifsp.view.model;
 
 import javax.swing.table.DefaultTableModel;
 
-public class ClientModel extends DefaultTableModel {
+import br.edu.ifsp.model.Client;
+
+public class ClientTableModel extends DefaultTableModel {
 
 	private static final long serialVersionUID = 3472716354338896651L;
 
-	public ClientModel(String[] header, Object[][] rows) {
+	public ClientTableModel(String[] header, Object[][] rows) {
 
 		for (String c : header)
 			super.addColumn(c);
@@ -37,5 +39,9 @@ public class ClientModel extends DefaultTableModel {
 	
 	public void addRow(Integer idClient, String fullname, String birthdate) {
 		super.addRow(new Object[] {idClient, fullname, birthdate});
+	}
+	
+	public void addRow(Client client) {
+		super.addRow(new Object[] {client.getIdClient(), client.getName(), client.getBirthdate()});
 	}
 }

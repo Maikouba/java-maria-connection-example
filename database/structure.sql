@@ -23,6 +23,7 @@ USE `CompraProduto` ;
 CREATE TABLE IF NOT EXISTS `CompraProduto`.`Cliente` (
   `idCliente` INT NOT NULL COMMENT '',
   `nome` VARCHAR(90) NOT NULL COMMENT '',
+  `nascimento`DATE NOT NULL,
   PRIMARY KEY (`idCliente`)  COMMENT '')
 ENGINE = InnoDB;
 

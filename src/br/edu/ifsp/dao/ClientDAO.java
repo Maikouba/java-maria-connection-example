@@ -1,6 +1,8 @@
 package br.edu.ifsp.dao;
 
 import java.sql.ResultSet;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,10 +43,14 @@ public class ClientDAO extends DAO<Client> {
 
 			database.connect();
 
-			String sql = "UPDATE Cliente SET idCliente = ?, nome = ? WHERE idCliente = ?";
+			String sql = "UPDATE Cliente SET idCliente = ?, nome = ?, nascimento = ? WHERE idCliente = ?";
 
 			sql = sql.replaceFirst("\\?", client.getIdClient().toString());
 			sql = sql.replaceFirst("\\?", "\"" + client.getName() + "\"");
+			
+			DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+			
+			sql = sql.replaceFirst("\\?", "\"" + df.format(client.getBirthdate()) + "\"");
 			sql = sql.replaceFirst("\\?", client.getIdClient().toString());
 
 			return database.update(sql);
@@ -79,31 +85,41 @@ public class ClientDAO extends DAO<Client> {
 	@Override
 	public List<Client> listAll() {
 
-		List<Client> list = new ArrayList<Client>();
-
-		String sql = "SELECT idCliente, nome FROM Cliente";
-
-		ResultSet rs = database.query(sql);
-
 		try {
-
-			while (rs.next()) {
-
-				Client c = new Client();
-
-				c.setIdClient(rs.getLong("idCliente"));
-				c.setName(rs.getString("nome"));
-
-				list.add(c);
+			
+			this.database.connect();
+			
+			List<Client> list = new ArrayList<Client>();
+	
+			String sql = "SELECT idCliente, nome, nascimento FROM Cliente";
+	
+			ResultSet rs = database.query(sql);
+	
+			try {
+	
+				while (rs.next()) {
+	
+					Client c = new Client();
+	
+					c.setIdClient(rs.getLong("idCliente"));
+					c.setName(rs.getString("nome"));
+					c.setBirthdate(rs.getDate("nascimento"));
+	
+					list.add(c);
+				}
+	
+			} catch (Exception e) {
+	
+				e.printStackTrace();
+	
 			}
-
-		} catch (Exception e) {
-
-			e.printStackTrace();
-
+	
+			return list;
+		
+		} finally {
+		
+			this.database.disconnect();
 		}
-
-		return list;
 	}
 
 }
